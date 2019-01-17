@@ -6,28 +6,15 @@ import BasicLayout from './layouts/BasicLayout';
 import Login from './pages/Login';
 import UserRegistrationy from './pages/UserRegistrationy';
 import NotFound from './pages/NotFound';
-import Register from './pages/Register';
-import CA from './pages/CA';
-
 const routerConfig = [
   {
     path: '/login',
     component: Login,
   },
   {
-    path: '/user/registration',
+    path: 'list',
     layout: BasicLayout,
     component: UserRegistrationy,
-  },
-  {
-    path: '/user/register',
-    layout: BasicLayout,
-    component: Register,
-  },
-  {
-    path: '/configure/CA',
-    layout: BasicLayout,
-    component: CA,
   },
   {
     path: '*',

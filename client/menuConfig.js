@@ -1,6 +1,3 @@
-// 菜单配置
-// headerMenuConfig：头部导航配置
-// asideMenuConfig：侧边导航配置
 
 const headerMenuConfig = [
   //   {
@@ -26,21 +23,10 @@ const headerMenuConfig = [
 
 const asideMenuConfig = [
   {
-    name: '账号管理',
-    path: '/user',
+    name: '记录',
+    path: '/list',
     icon: 'yonghu',
-    children: [
-      { name: '账号注册', path: '/user/registration' },
-      { name: '账号登记', path: '/user/register' },
-    ],
-  }, {
-    name: '配置管理',
-    path: '/configure',
-    icon: 'shezhi',
-    children: [
-      { name: 'CA服务器', path: '/configure/CA' },
-    ],
-  },
+  }
 ];
 
 export { headerMenuConfig, asideMenuConfig };

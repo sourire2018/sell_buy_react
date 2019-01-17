@@ -1,48 +1,23 @@
 import React, { Component } from 'react';
 import { Dialog, Table } from '@icedesign/base';
-import Operation from '../../../../api/api';
 import cookie from 'react-cookies';
 import IceIcon from '@icedesign/icon';
-
-const { userlist } = Operation;
 
 export default class Home extends Component {
   static displayName = 'Home';
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: [],
-      account: cookie.load('account'),
-      dialog1: false,
-      lock: '',
+      dataSource: props.data,
     };
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+     dataSource : nextProps.data
+    });
+  }
 
-  componentWillMount = async () => {
-    const result = await userlist();
-    this.setState({
-      dataSource: result,
-    });
-  }
-  hideDialog1 = () => {
-    this.setState({
-      dialog1: false,
-    });
-  };
-  renderpass = (record, index) => {
-    return (
-      <div style={styles.oper}>
-        <IceIcon size="small" type="lock" style={styles.editIcon} onClick={() => { this.showpassword(index); }} />
-      </div>
-    );
-  }
-  showpassword = (index) => {
-    const result = this.state.dataSource[index].password;
-    this.setState({
-      dialog1: true,
-      lock: result,
-    });
-  }
+
   render() {
     return (
       <div style={styles.tableContainer}>
@@ -51,25 +26,11 @@ export default class Home extends Component {
           hasBorder={false}
           className="custom-table"
         >
-          <Table.Column width={200} title="组织部门信息" dataIndex="depentment" />
-          <Table.Column width={100} title="名称" dataIndex="name" />
-          <Table.Column width={100} title="类型" dataIndex="type" />
-          <Table.Column width={100} title="CA服务器名称" dataIndex="ca" />
-          <Table.Column width={100} title="状态" dataIndex="status" cell={row => (row == '0' ? ('等待管理员注册') : ('注册成功'))} />
-          <Table.Column width={50} title="密码" cell={this.renderpass} align="center" />
+          <Table.Column width={200} title="ERC721ID" dataIndex="erc721ID" />
+          <Table.Column width={100} title="耳号" dataIndex="earID" />
+          <Table.Column width={100} title="状态" dataIndex="status" cell={row => (row == '0' ? ('待售') : (row == '1' ? ("已售") : ("已收货")))} />
         </Table>
-        <Dialog
-          className="simple-form-dialog"
-          style={{ width: '1000px' }}
-          autoFocus
-          footerAlign="center"
-          title="密码"
-          onClose={this.hideDialog1}
-          isFullScreen
-          visible={this.state.dialog1}
-        >
-          {this.state.lock}
-        </Dialog>
+
       </div>
     );
   }

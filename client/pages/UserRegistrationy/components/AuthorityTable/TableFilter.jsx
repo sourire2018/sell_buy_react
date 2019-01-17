@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Button, Dialog } from '@icedesign/base';
-import AddMessage from './AddMessage';
 import './styles.css';
 
 export default class TableFilter extends Component {
@@ -9,41 +7,18 @@ export default class TableFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialog: false,
+      money : props.money 
     };
   }
-  addpig = () => {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      dialog: true,
+     money : nextProps.money
     });
   }
-  hideDialog = () => {
-    this.setState({
-      dialog: false,
-    });
-  };
   render() {
     return (
       <div style={styles.tableFilter}>
-        <div style={styles.title}>任务</div>
-        <div style={styles.submitButton}>
-          <Button type="primary" onClick={() => { this.addpig(); }}>
-            账号注册
-          </Button>
-        </div>
-
-        <Dialog
-          className="simple-form-dialog"
-          style={{ width: '1000px' }}
-          autoFocus
-          footerAlign="center"
-          title="账号注册"
-          onClose={this.hideDialog}
-          isFullScreen
-          visible={this.state.dialog}
-        >
-          <AddMessage />
-        </Dialog>
+        <div style={styles.title}>销售额： {this.state.money}ETH</div>
       </div>
     );
   }

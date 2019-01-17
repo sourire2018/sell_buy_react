@@ -23,12 +23,12 @@ export default class UserLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      account: 'Admin',
-      password: 'admin',
+      account: 'Seller',
+      password: 'Seller',
       part: 'enterprise',
       value: {
-        account: 'Admin',
-        password: 'admin',
+        account: 'Seller',
+        password: 'Seller',
         part: 'enterprise',
       },
     };
@@ -75,7 +75,7 @@ export default class UserLogin extends Component {
         />
         <div style={styles.contentWrapper} className="content-wrapper">
           <h2 style={styles.slogan} className="slogan">
-            欢迎进入 <br /> CA管理系统
+            欢迎进入 <br /> 交易管理系统
           </h2>
           <div style={styles.formContainer}>
             <h4 style={styles.formTitle}>登录</h4>
@@ -85,16 +85,6 @@ export default class UserLogin extends Component {
             >
               <div style={styles.formItems}>
                 <Row style={styles.formItem}>
-                  <Col>
-                    <IceIcon
-                      type="message"
-                      size="small"
-                      style={styles.inputIcon}
-                    />
-                    <IceFormBinder name="part" required message="必填">
-                      <Input maxLength={20} placeholder="猪场企业" value={this.state.part} onChange={this.part} />
-                    </IceFormBinder>
-                  </Col>
                   <Col>
                     <IceFormError name="part" />
                   </Col>

@@ -24,7 +24,7 @@ export default class UserRegistrationy extends Component {
     }
   }
   render() {
-    if (this.state.account == 'Admin') {
+    if (this.state.account == 'Seller') {
       return (
         <div className="pigsty-page">
           <AuthorityTable />

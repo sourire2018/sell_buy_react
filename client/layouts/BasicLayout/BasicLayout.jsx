@@ -10,7 +10,7 @@ import { enquire } from 'enquire-js';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Logo from '../../components/Logo';
-import { asideMenuConfig } from '../../menuConfig';
+//import { asideMenuConfig } from '../../menuConfig';
 import './scss/dark.scss';
 
 const theme = 'dark';
@@ -23,15 +23,11 @@ export default class BasicLayout extends Component {
 
   constructor(props) {
     super(props);
-
-    const openKeys = this.getOpenKeys();
     this.state = {
       collapse: false,
       openDrawer: false,
       isScreen: undefined,
-      openKeys,
     };
-    this.openKeysCache = openKeys;
   }
 
   componentDidMount() {
@@ -48,7 +44,7 @@ export default class BasicLayout extends Component {
       history,
     } = this.props;
     if (pathname === '/') {
-      history.push('/user/registration');
+      history.push('/list');
     }
   };
 
@@ -130,20 +126,6 @@ export default class BasicLayout extends Component {
   /**
    * 获取当前展开的菜单项
    */
-  getOpenKeys = () => {
-    const { match } = this.props;
-    const matched = match.path;
-    let openKeys = [];
-
-    Array.isArray(asideMenuConfig) &&
-      asideMenuConfig.forEach((item, index) => {
-        if (matched.startsWith(item.path)) {
-          openKeys = [`${index}`];
-        }
-      });
-
-    return openKeys;
-  };
 
   render() {
     const { location } = this.props;
@@ -190,78 +172,7 @@ export default class BasicLayout extends Component {
               </a>
             )}
 
-            <Menu
-              style={{ width: this.state.collapse ? 60 : 240 }}
-              inlineCollapsed={this.state.collapse}
-              mode="inline"
-              selectedKeys={[pathname]}
-              openKeys={this.state.openKeys}
-              defaultSelectedKeys={[pathname]}
-              onOpenChange={this.onOpenChange}
-              onClick={this.onMenuClick}
-            >
-              {Array.isArray(asideMenuConfig) &&
-                asideMenuConfig.length > 0 &&
-                asideMenuConfig.map((nav, index) => {
-                  if (nav.children && nav.children.length > 0) {
-                    return (
-                      <SubMenu
-                        key={index}
-                        title={
-                          <span>
-                            {nav.icon ? (
-                              <FoundationSymbol size="small" type={nav.icon} />
-                            ) : null}
-                            <span className="ice-menu-collapse-hide">
-                              {nav.name}
-                            </span>
-                          </span>
-                        }
-                      >
-                        {nav.children.map((item) => {
-                          const linkProps = {};
-                          if (item.newWindow) {
-                            linkProps.href = item.path;
-                            linkProps.target = '_blank';
-                          } else if (item.external) {
-                            linkProps.href = item.path;
-                          } else {
-                            linkProps.to = item.path;
-                          }
-                          return (
-                            <MenuItem key={item.path}>
-                              <Link {...linkProps}>{item.name}</Link>
-                            </MenuItem>
-                          );
-                        })}
-                      </SubMenu>
-                    );
-                  }
-                  const linkProps = {};
-                  if (nav.newWindow) {
-                    linkProps.href = nav.path;
-                    linkProps.target = '_blank';
-                  } else if (nav.external) {
-                    linkProps.href = nav.path;
-                  } else {
-                    linkProps.to = nav.path;
-                  }
-                  return (
-                    <MenuItem key={nav.path}>
-                      <Link {...linkProps}>
-                        <span>
-                          {nav.icon ? (
-                            <FoundationSymbol size="small" type={nav.icon} />
-                          ) : null}
-                          <span className="ice-menu-collapse-hide">
-                            {nav.name}
-                          </span>
-                        </span>
-                      </Link>
-                    </MenuItem>
-                  );
-                })}
-            </Menu>
+            
             {/* 侧边菜单项 end */}
           </Layout.Aside>
 

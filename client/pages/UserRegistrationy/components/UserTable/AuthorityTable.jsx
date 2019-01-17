@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import TableFilter from './TableFilter';
 import CustomTable from './CustomTable';
 
+import Options from '../../../../api/api';
+
+const {getListByBuyer} = Options;
+
 export default class AuthorityTable extends Component {
   static displayName = 'AuthorityTable';
 
@@ -11,14 +15,25 @@ export default class AuthorityTable extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      money : 0,
+      data : []
+    };
+  }
+
+  componentWillMount = async () => {
+    const result = await getListByBuyer();
+    this.setState({
+      money: result.money,
+      data: result.data
+    });
   }
 
   render() {
     return (
       <div style={styles.container}>
-        <TableFilter />
-        <CustomTable />
+        <TableFilter money= {this.state.money}/>
+        <CustomTable data ={this.state.data}/>
       </div>
     );
   }
